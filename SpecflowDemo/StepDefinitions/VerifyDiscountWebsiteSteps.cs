@@ -1,6 +1,7 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Remote;
+using OpenQA.Selenium.Support.UI;
 using System;
 using TechTalk.SpecFlow;
 
@@ -39,7 +40,15 @@ namespace ConsoleApp1
         [Given(@"My address is in ""(.*)"" on the website")]
         public void GivenMyAddressIsInOnTheWebsite(string state)
         {
+            WebDriverWait webDriverWait = new WebDriverWait(driver, new TimeSpan(0, 0, 5));
+            webDriverWait.Until(driver => driver.FindElement(By.Id("MainContent_ddlState")));
             driver.FindElement(By.Id("MainContent_ddlState")).SendKeys(state);
+        }
+
+        [Given(@"My Profession is ""(.*)"" on the website")]
+        public void GivenMyProfessionIsOnTheWebsite(string profession)
+        {
+            driver.FindElement(By.Id("MainContent_txtProfession")).SendKeys(profession);
         }
 
         [When(@"I view my discount on the website")]
